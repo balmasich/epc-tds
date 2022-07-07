@@ -54,9 +54,9 @@ class BitArray {
 
   set(value, startIndex, endIndex) {
     let v = BigInt(value);
-    for (let i = 0n; startIndex < endIndex; i++) {
+    for (let i = BigInt(0); startIndex < endIndex; i++) {
       endIndex--;
-      if ((v >> i) & 0b1n) { // check bit
+      if ((v >> i) & BigInt(1)) { // check bit
         this.setBit(endIndex);
       } else {
         this.clearBit(endIndex);
@@ -65,10 +65,10 @@ class BitArray {
   }
 
   getBigInt(startIndex, endIndex) {
-    let result = 0n;
-    for (let i = 0n; startIndex < endIndex; i++) {
+    let result = BigInt(0);
+    for (let i = BigInt(0); startIndex < endIndex; i++) {
       if (this.isBit(--endIndex)) {
-        result |= 1n << i; // set bit
+        result |= BigInt(1) << i; // set bit
       }
     }
     return result;
@@ -79,13 +79,13 @@ class BitArray {
   }
 
   getSigned(startIndex, endIndex) {
-    let i, result = 0n;
-    for (i = 0n; startIndex < endIndex; i++) {
+    let i, result = BigInt(0);
+    for (i = BigInt(0); startIndex < endIndex; i++) {
       if (this.isBit(--endIndex)) {
-        result |= 1n << i; // set bit
+        result |= BigInt(1) << i; // set bit
       }
     }
-    let mask = 1n << i - 1n;
+    let mask = BigInt(1) << i - BigInt(1);
     if (result & mask) { // check first bit
         result = (mask ^ result) - mask;
     }
